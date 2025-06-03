@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["range","uniform"],"struct":["Alphanumeric","Bernoulli","Binomial","Cauchy","ChiSquared","DistIter","Exp","Exp1","FisherF","Gamma","LogNormal","Normal","Open01","OpenClosed01","Pareto","Poisson","Standard","StandardNormal","StudentT","Uniform","Weighted","WeightedChoice"],"trait":["Distribution","IndependentSample","Sample"]};
