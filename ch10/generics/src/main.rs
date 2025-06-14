@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 /*
 在类型定义中使用泛型，在结构体名称后使用<>声明泛型参数的类型，类比 Go 中结构体使用泛型：
 type Point[T, U any] struct {
@@ -31,6 +33,31 @@ Rust 中可以只针对某种具体的类型实现某个方法，而不是针对
 impl Point<f32, f32> {
     fn distance_from_origin(&self) -> f32 {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
+    }
+}
+
+/*
+根据 trait bound 在泛型上有条件的实现方法，cmp_display 方法只对任何实现了 Display 和 PartialOrd 的类型实现
+*/
+impl<T, U> Point<T, U>
+where
+    T: Display + PartialOrd,
+    U: Display + PartialOrd,
+{
+    fn cmp_display(&self) {
+        println!("The member is x = {}, y = {}", self.x, self.y);
+    }
+}
+
+// 自定义 trait：将类型转换为 JSON 字符串
+trait ToJson {
+    fn to_json(&self) -> String;
+}
+
+// 为任何实现了 Display 这个 trait 的类型实现 ToJson trait
+impl<T: Display> ToJson for T {
+    fn to_json(&self) -> String {
+        format!("\"{}\"", self) // 包装为 JSON 字符串格式
     }
 }
 
@@ -79,6 +106,8 @@ fn main() {
         // integer_and_float.distance_from_origin(), // no method named `distance_from_origin` found for struct `Point<{integer}, {float}>` in the current scope
         diff_type_in_struct_and_fn.mixup(p2).y,
     );
+    // 因为整数实现了 Display 这个 trait，所以就可以调用 to_json() 方法
+    println!("ToJson: {}", 3.to_json());
 }
 
 fn largest_i32(list: &[i32]) -> i32 {
