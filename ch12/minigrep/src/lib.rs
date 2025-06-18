@@ -8,15 +8,22 @@ pub struct Config {
 
 impl Config {
     // 通过关联函数构造结构体实例
-    pub fn new(args: &Vec<String>) -> Result<Config, &str> {
+    pub fn new(args: env::Args) -> Result<Config, &'static str> {
         if args.len() < 3 {
             return Err("not enough arguments");
         }
-        let query = &args[1];
-        let filename = &args[2];
+        let mut params = args.skip(1);
+        let query = match params.next() {
+            Some(query) => query,
+            None => return Err("Didn't get a query string"),
+        };
+        let filename = match params.next() {
+            Some(filename) => filename,
+            None => return Err("Didn't get filename"),
+        };
         Ok(Config {
-            query: query.clone(),
-            filename: filename.clone(),
+            query,
+            filename,
             case_insensitive: env::var("CASE_INSENSITIVE").is_err(),
         })
     }
@@ -50,13 +57,17 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 }
 
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    let mut result = Vec::new();
-    for line in contents.lines() {
-        if line.to_uppercase().contains(query.to_uppercase().as_str()) {
-            result.push(line);
-        }
-    }
-    result
+    // let mut result = Vec::new();
+    // for line in contents.lines() {
+    //     if line.to_uppercase().contains(query.to_uppercase().as_str()) {
+    //         result.push(line);
+    //     }
+    // }
+    // result
+    contents
+        .lines()
+        .filter(|line| line.to_uppercase().contains(query.to_uppercase().as_str()))
+        .collect()
 }
 
 #[cfg(test)]

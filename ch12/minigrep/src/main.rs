@@ -2,10 +2,8 @@ use minigrep::{self, Config};
 use std::{env, process};
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-
     // 使用 Result 下的 unwrap_or_else 方法，优雅的处理出错的情况
-    let config = Config::new(&args).unwrap_or_else(|err| {
+    let config = Config::new(env::args()).unwrap_or_else(|err| {
         // 使用 eprintln! 将错误信息写入标准错误而不是标准输出
         eprintln!("Got problem when parsing argments: {}", err);
         process::exit(1);
