@@ -1,4 +1,4 @@
-use minigrep::{self, Config};
+use minigrep_bourne::{self, Config};
 use std::{env, process};
 
 fn main() {
@@ -15,7 +15,7 @@ fn main() {
     );
 
     // 不关心 run 成功时的返回值，所以用 if let 来检查是否返回了一个 Err 值，这更合适
-    if let Err(err) = minigrep::run(config) {
+    if let Err(err) = minigrep_bourne::run(config) {
         eprintln!("Application error: {}", err);
         process::exit(1);
     }

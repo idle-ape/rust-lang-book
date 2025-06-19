@@ -1,6 +1,9 @@
 [package]
-name = "minigrep"
+name = "minigrep_bourne"
 version = "0.1.0"
+authors = ["<Bourne> <liuweifu321@gmail.com>"]
 edition = "2024"
+license = "MIT"
+description = "A simple implementation of the classic grep command"
 
 [dependencies]
