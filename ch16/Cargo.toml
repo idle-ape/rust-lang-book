@@ -1,4 +1,4 @@
 [workspace]
 members = [
-    "concurrency", "threads",
+    "concurrency", "message-passing", "threads",
 ]

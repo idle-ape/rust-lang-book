@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 threads = { path = "../threads" }
+message-passing = { path = "../message-passing" }
