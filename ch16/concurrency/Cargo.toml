@@ -7,3 +7,4 @@ edition = "2024"
 threads = { path = "../threads" }
 message-passing = { path = "../message-passing" }
 shared-state = { path = "../shared-state" }
+sync-send = { path = "../sync-send" }

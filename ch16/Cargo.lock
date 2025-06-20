@@ -8,6 +8,7 @@ version = "0.1.0"
 dependencies = [
  "message-passing",
  "shared-state",
+ "sync-send",
  "threads",
 ]
 
@@ -17,6 +18,10 @@ version = "0.1.0"
 
 [[package]]
 name = "shared-state"
+version = "0.1.0"
+
+[[package]]
+name = "sync-send"
 version = "0.1.0"
 
 [[package]]
