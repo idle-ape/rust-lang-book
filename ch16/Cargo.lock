@@ -7,11 +7,16 @@ name = "concurrency"
 version = "0.1.0"
 dependencies = [
  "message-passing",
+ "shared-state",
  "threads",
 ]
 
 [[package]]
 name = "message-passing"
+version = "0.1.0"
+
+[[package]]
+name = "shared-state"
 version = "0.1.0"
 
 [[package]]
