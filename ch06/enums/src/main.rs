@@ -31,6 +31,7 @@ struct MoveMessage {
 struct WriteMessage(String); // 元组结构体
 struct ChangeColorMessage(i32, i32, i32); // 元组结构体
 */
+#[derive(Debug)]
 enum Message {
     Quit,                       // 没有关联任何类型
     Move { x: i32, y: i32 },    // 关联了一个匿名结构体
@@ -41,7 +42,7 @@ enum Message {
 // 枚举和结构体相似，也可以使用 impl 来为枚举定义方法
 impl Message {
     fn call(&self) {
-        println!("call function of enum");
+        println!("call function of enum, val: {:?}", self); // self 对应调用call方法的值
     }
 }
 
