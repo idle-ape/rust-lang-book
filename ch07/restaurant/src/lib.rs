@@ -19,7 +19,14 @@ Rust 中默认所有项（函数、方法、结构体、枚举、模块和常量
 可以通过 pub 关键字来创建公共项，使子模块的内部部分暴露给上级模块使用
 */
 
-// 使用 use 将模块引入当前作用域，这样使用 Breakfast 模块下的项时，就不用写冗长的路径前缀
+/*
+在作用域中增加  use  和路径类似于在文件系统中创建软连接（符号连接，symbolic link）。
+通过在 crate 根增加  use crate::front_of_house::hosting ，现在  hosting  在作用域中就是有
+效的名称了，如同  hosting  模块被定义于 crate 根一样。通过  use  引入作用域的路径也会
+检查私有性，同其它路径一样。
+使用 use 将模块引入当前作用域，这样使用 Breakfast 模块下的项时，就不用写冗长的路径前缀
+use crate::front_of_house::hosting 和下面的定义等价，这个是绝对路径，下面是相对路径
+*/
 use front_of_house::Breakfast;
 
 // 使用父模块将两个具有相同名称的类型引入同一作用域
@@ -76,7 +83,7 @@ fn server_order() {
 }
 
 mod front_of_house {
-    // 也可以使用 pub 来设计公有的结构体和枚举，需要注意的是，即使结构体是共有的，字段不加 pub 的话也是私有的
+    // 也可以使用 pub 来设计公有的结构体和枚举，需要注意的是，即使结构体是公有的，字段不加 pub 的话也是私有的
     pub struct Breakfast {
         pub toast: String,
         seasonal_fruist: String,
@@ -91,7 +98,7 @@ mod front_of_house {
         }
     }
 
-    // 共有的枚举类型
+    // 公有的枚举类型。将枚举设为公有，则它的所有成员都将变为公有
     #[derive(Debug)]
     pub enum Appetizer {
         Soup,
@@ -116,7 +123,7 @@ mod front_of_house {
 
 pub fn eat_at_restaurant() {
     // 通过绝对路径访问模块内的项
-    crate::front_of_house::hosting::add_to_waitlist(); // 这里还不能编译，因为 hosting 模块是私有的；hosting公有的还不行，add_to_waitlist()也得是共有的
+    crate::front_of_house::hosting::add_to_waitlist(); // 这里还不能编译，因为 hosting 模块是私有的；hosting公有的还不行，add_to_waitlist()也得是公有的
     // 通过相对路径访问模块内的项
     front_of_house::hosting::add_to_waitlist(); // ditto
 
