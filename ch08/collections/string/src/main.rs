@@ -51,6 +51,10 @@ fn main() {
     for c in string.chars() {
         println!("char {} in {}", c, string);
     }
+    for b in string.bytes() {
+        println!("byte {}({}) in {}", b, b as char, string);
+    }
+
     match string.chars().nth(0) {
         Some(c) => println!("first char of {} is {}", string, c),
         None => println!("first char not found"),

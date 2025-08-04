@@ -17,12 +17,14 @@ fn main() {
     let initial_scores = vec![30, 70];
     let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
 
+    // 对于像  i32  这样的实现了 Copy  trait 的类型，其值可以拷贝进哈希 map，因为它们在栈上，拷贝成本很低。对于像  String 这样拥有所有权的值，其值将被移动而哈希 map 会成为这些值的所有者
     let field_name = String::from("Favorite color");
     let field_value = String::from("Blue");
     let mut map = HashMap::new();
     map.insert(field_name, field_value);
     // 这里 field_name 和 field_value 不再有效
     // 对于像 String 这样拥有所有权的值，其值将被移动而哈希 map 会成为这些值的所有者
+    // println!("field_name = {}", field_name); // borrow of moved value: `field_name`
 
     // 访问map中的值
     let team = String::from("Orange");
