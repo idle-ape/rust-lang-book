@@ -1,6 +1,6 @@
 use core::error;
 use std::{
-    fs::File,
+    fs::{self, File},
     io::{self, ErrorKind, Read},
 };
 
@@ -89,5 +89,15 @@ fn read_username_from_file_v2() -> Result<String, io::Error> {
     let mut f = File::open("hello.txt")?;
     let mut s = String::new();
     f.read_to_string(&mut s)?;
+    Ok(s)
+}
+
+// 更简洁的写法，问号运算符之后的链式方法调用将错误传播给调用者
+fn read_username_from_file_v3() -> Result<String, io::Error> {
+    // 将文件读取到一个字符串是相当常见的操作，所以 Rust 提供了名为  fs::read_to_string  的函数，
+    // 它会打开文件、新建一个  String 、读取文件的内容，并将内容放入  String ，接着返回它
+    // fs::read_to_string("hello.txt") 
+    let mut s = String::new();
+    File::open("hello.txt")?.read_to_string(&mut s)?;
     Ok(s)
 }
